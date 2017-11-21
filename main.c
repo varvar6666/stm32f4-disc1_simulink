@@ -92,7 +92,7 @@ void TIM6_DAC_IRQHandler(void)
         usart_tx_buff[0] = tim_mk;
         USART1->CR1 |= USART_CR1_TCIE;
         tim_mk ++;
-        if (tim_mk == 50) tim_mk = 0;
+        if (tim_mk == 100) tim_mk = 0;
     }
 
 }
@@ -258,7 +258,7 @@ int main(void)
     //TIM6 URQ for uart
     RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;//APB1_tim clk = 50MHz
     TIM6->PSC = 49999;//clk = 1kHz
-    TIM6->ARR = 20;// Tirq=50Hz
+    TIM6->ARR = 10;// Tirq=50Hz
     TIM6->DIER = TIM_DIER_UIE;
     TIM6->CR1 = TIM_CR1_CEN;
     
@@ -370,9 +370,9 @@ int main(void)
         usart_tx_buff[8] = TIM2->CCR1;
         usart_tx_buff[9] = TIM5->CCR1;
         if (usart_rx_buff[0] < 5)
-            GPIOD->BSRR |= GPIO_BSRR_BS13;
+            GPIOD->BSRR |= GPIO_BSRR_BS14;
         else
-            GPIOD->BSRR |= GPIO_BSRR_BR13;
+            GPIOD->BSRR |= GPIO_BSRR_BR14;
     
     }
 
